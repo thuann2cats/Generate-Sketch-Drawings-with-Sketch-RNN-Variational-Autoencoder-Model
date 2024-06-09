@@ -92,7 +92,7 @@ tensorboard_folder_name = "tensorboard_logging"
 ### Training on "bicycle" sketches
 
 ### Training on "cat" sketches
-<link rel="stylesheet" href="README.css">
+
 
 <figure>
   <img src="tensorboard_cat_sketches.png" alt="Training loss curve (total) after certain number of batches">
@@ -121,6 +121,8 @@ tensorboard_folder_name = "tensorboard_logging"
     <td><img src="sampled_sketches_cats\before_epoch11_batch100.png" alt="Image 1 description"></td>
     <td><img src="sampled_sketches_cats\before_epoch11_batch200.png" alt="Image 2 description"></td>
     </tr>
+    
+    <tr></tr>
 
   <tr>
     <td colspan="2" style="text-align: center;">After about 10 epochs, the drawings still looked messy, but at least had a large face and two ears.</td>
@@ -132,9 +134,12 @@ tensorboard_folder_name = "tensorboard_logging"
     <td><img src="sampled_sketches_cats\before_epoch22_batch0.png" alt="Image 1 description"></td>
     <td><img src="sampled_sketches_cats\before_epoch22_batch100.png" alt="Image 2 description"></td>
     </tr>
+    <tr></tr>
+    <tr>
     <td><img src="sampled_sketches_cats\before_epoch22_batch300.png" alt="Image 1 description"></td>
     <td><img src="sampled_sketches_cats\before_epoch22_batch400.png" alt="Image 2 description"></td>
     </tr>
+    <tr></tr>
   <tr>
     <td colspan="2" style="text-align: center;">After about 20 epochs, features such as eyes and whiskers start to appear more often.</td>
   </tr>
@@ -145,9 +150,12 @@ tensorboard_folder_name = "tensorboard_logging"
     <td><img src="sampled_sketches_cats\before_epoch51_batch300.png" alt="Image 1 description"></td>
     <td><img src="sampled_sketches_cats\before_epoch51_batch600.png" alt="Image 2 description"></td>
     </tr>
+    <tr></tr>
+    <tr>
     <td><img src="sampled_sketches_cats\before_epoch52_batch300.png" alt="Image 1 description"></td>
     <td><img src="sampled_sketches_cats\before_epoch55_batch200.png" alt="Image 2 description"></td>
     </tr>
+    <tr></tr>
   <tr>
     <td colspan="2" style="text-align: center;">However, the model stopped improving after that. After 50 epochs, the eyes were still not very pronounced. Whiskers and nose were not consistently drawn.</td>
   </tr>
@@ -159,7 +167,7 @@ tensorboard_folder_name = "tensorboard_logging"
     <td><img src="sampled_sketches_cats\before_epoch70_batch200.png" alt="Image 1 description"></td>
     <td><img src="sampled_sketches_cats\before_epoch70_batch500.png" alt="Image 2 description"></td>
     </tr>
-
+  <tr></tr>
   <tr>
     <td colspan="2" style="text-align: center;">At about 70 epochs, the model seemed to have learned the nose, but did not consistently draw it. Perhaps latent encoding/representation was lacking, or the decoder was inadequate in sketching enough variety of cat features.</td>
   </tr>

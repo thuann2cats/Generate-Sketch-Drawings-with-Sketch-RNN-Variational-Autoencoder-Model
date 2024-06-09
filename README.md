@@ -93,6 +93,12 @@ tensorboard_folder_name = "tensorboard_logging"
 
 ### Training on "cat" sketches
 
+<style>
+  table {
+  background-color: inherit; /* Inherits background from parent (usually white) */
+}
+</style>
+
 <figure>
   <img src="tensorboard_cat_sketches.png" alt="Training loss curve (total) after certain number of batches">
   <figcaption>Training loss curve (total) after certain number of batches</figcaption>

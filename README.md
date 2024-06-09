@@ -92,7 +92,7 @@ tensorboard_folder_name = "tensorboard_logging"
 ### Training on "bicycle" sketches
 
 ### Training on "cat" sketches
-
+<link rel="stylesheet" href="README.css">
 
 <figure>
   <img src="tensorboard_cat_sketches.png" alt="Training loss curve (total) after certain number of batches">
@@ -100,7 +100,6 @@ tensorboard_folder_name = "tensorboard_logging"
 </figure>
 
 
-<table>
 <table>
   <tr>
     <td><img src="sampled_sketches_cats\before_epoch3_batch400.png" alt="Image 1 description"></td>
@@ -161,7 +160,6 @@ tensorboard_folder_name = "tensorboard_logging"
   <tr>
     <td colspan="2" style="text-align: center;">At about 70 epochs, the model seemed to have learned the nose, but did not consistently draw it. Perhaps latent encoding/representation was lacking, or the decoder was inadequate in sketching enough variety of cat features.</td>
   </tr>
-</table>
 </table>
 
 

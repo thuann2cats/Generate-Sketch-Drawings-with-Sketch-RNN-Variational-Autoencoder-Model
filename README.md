@@ -105,9 +105,12 @@ tensorboard_folder_name = "tensorboard_logging"
     <td><img src="sampled_sketches_cats\before_epoch3_batch400.png" alt="Image 1 description"></td>
     <td><img src="sampled_sketches_cats\before_epoch3_batch500.png" alt="Image 2 description"></td>
     </tr>
+    <tr></tr>
+    <tr>
     <td><img src="sampled_sketches_cats\before_epoch3_batch600.png" alt="Image 1 description"></td>
     <td><img src="sampled_sketches_cats\before_epoch4_batch0.png" alt="Image 2 description"></td>
     </tr>
+    <tr></tr>
   <tr>
     <td colspan="2" style="text-align: center;">In the first few epochs, the model generated non-sensical sketches, but it seems to realize main features of a cat such as a round head and a pointed ear.</td>
   </tr>

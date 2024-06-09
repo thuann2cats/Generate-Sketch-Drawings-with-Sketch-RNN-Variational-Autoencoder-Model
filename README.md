@@ -7,9 +7,11 @@ Deep learning model that trains on a dataset of human-drawn sketches of a subjec
 
 In this experiment, I implemented the Sketch-RNN model from scratch, based on Google Brain's [A Neural Representation of Sketch Drawings](https://arxiv.org/pdf/1704.03477) paper and after reviewing a previous implementation by [the LabML library](https://nn.labml.ai/sketch_rnn/index.html). I also used the data-processing pipeline from LabML.
 
-Sketch-RNN is similar to a variational autoencoder (VAE). The encoder is a recurrent network that encodes a series of pen strokes into a distribution from which a latent vector is sampled. The decoder is another recurrent network that tries to reconstruct the input pen stroke sequence. The decoder's output is a series of Gaussian mixture distributions, from which actual pen strokes would be sampled. Please refer to my [computation graph](<Computation Graph Sketch RNN.pdf>) below for a more granular visualization.
+Sketch-RNN is similar to a variational autoencoder (VAE). The encoder is a recurrent network that encodes a series of pen strokes into a distribution from which a latent vector is sampled. The decoder is another recurrent network that tries to reconstruct the input pen stroke sequence. The decoder's output is a series of Gaussian mixture distributions, from which actual pen strokes would be sampled. Please refer to my [computation graph below](#computation-graph) for a more granular visualization.
 
 This model was trained on the [Quick, Draw!](https://github.com/googlecreativelab/quickdraw-dataset) dataset. Specific .npz files pertaining to specific object categories can be found [here](https://console.cloud.google.com/storage/browser/quickdraw_dataset/sketchrnn). Each sketch is a series of strokes, in which each stroke is represented by a tuple of several values, including $\Delta x$ and $\Delta y$ to represent the offset between current and next pen positions, as well as a flag to indicate whether the pen should touch the canvas or not.
+
+As I explained [below](#demo), in my limited experiments so far, the model was able to draw coherent sketches quickly, but failed to encode and draw more sophisticated features. In upcoming experiments, I plan to increase the model's capacity to learn to draw more difficult features.
 
 ## Training
 
@@ -268,6 +270,6 @@ Training loss curve (total) after certain number of batches:
 
 ## Computation graph
 
-For anyone who wants to look into the code, here's the computation graph that I outlined, along with variable name and tensor shape, to help guide myself in coding the modules in PyTorch.
+For anyone who wants to look into the code, here's the [computation graph](<Computation Graph Sketch RNN.pdf>) that I outlined, along with variable name and tensor shape, to help guide myself in coding the modules in PyTorch.
 
 ![sketch-RNN computation graph](<Computation Graph Sketch RNN.png>)

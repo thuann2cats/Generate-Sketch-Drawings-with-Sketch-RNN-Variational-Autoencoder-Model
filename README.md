@@ -15,6 +15,16 @@ As I explained [below](#demo), in my limited experiments so far, the model was a
 
 ## Training
 
+### Requirements
+```
+matplotlib==3.9.0
+numpy==1.26.4
+torch==2.3.0
+
+```
+
+### Script
+
 ```
 python train_sketch_rnn.py --data_file=/path/to/npz/data/file --folder_path=/path/to/folder/to/be/created/for/training
 ```
@@ -162,7 +172,7 @@ Training loss curve (total) after certain number of batches:
     </tr>
     <tr></tr>
   <tr>
-    <td colspan="2" style="text-align: center;">Unfortunately, the model stopped improving after that. Generated sketches remained quite simplistic relative to human-drawn sketches from the training data, where wheeels sometimes have spokes.</td>
+    <td colspan="2" style="text-align: center;">Unfortunately, the model stopped improving after that. Generated sketches remained quite simplistic relative to human-drawn sketches from the training data, where wheels sometimes have spokes.</td>
   </tr>
 </table>
 

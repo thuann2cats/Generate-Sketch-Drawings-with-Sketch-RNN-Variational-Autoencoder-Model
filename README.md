@@ -120,9 +120,9 @@ tensorboard_folder_name = "tensorboard_logging"
   <tr>
     <td><img src="sampled_sketches_cats\before_epoch11_batch100.png" alt="Image 1 description"></td>
     <td><img src="sampled_sketches_cats\before_epoch11_batch200.png" alt="Image 2 description"></td>
-    </tr>
+  </tr>
     
-    <tr></tr>
+  <tr></tr>
 
   <tr>
     <td colspan="2" style="text-align: center;">After about 10 epochs, the drawings still looked messy, but at least had a large face and two ears.</td>

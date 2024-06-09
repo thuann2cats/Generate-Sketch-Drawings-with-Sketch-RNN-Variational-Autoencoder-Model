@@ -96,10 +96,10 @@ tensorboard_folder_name = "tensorboard_logging"
 
 <figure>
   <img src="tensorboard_cat_sketches.png" alt="Training loss curve (total) after certain number of batches">
-  <figcaption>Training loss curve (total) after certain number of batches</figcaption>
+  <figcaption style="text-align: center;">Training loss curve (total) after certain number of batches</figcaption>
 </figure>
 
-
+<br>
 <table>
   <tr>
     <td><img src="sampled_sketches_cats\before_epoch3_batch400.png" alt="Image 1 description"></td>

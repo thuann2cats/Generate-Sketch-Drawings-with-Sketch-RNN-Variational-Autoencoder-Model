@@ -93,10 +93,10 @@ tensorboard_folder_name = "tensorboard_logging"
 
 ### Training on "cat" sketches
 
-
+Training loss curve (total) after certain number of batches:
 <figure>
   <img src="tensorboard_cat_sketches.png" alt="Training loss curve (total) after certain number of batches">
-  <figcaption style="text-align: center;">Training loss curve (total) after certain number of batches</figcaption>
+  
 </figure>
 
 <br />

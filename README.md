@@ -7,7 +7,7 @@ Deep learning model that trains on a dataset of human-drawn sketches of a subjec
 
 In this experiment, I implemented the Sketch-RNN model from scratch, based on Google Brain's [A Neural Representation of Sketch Drawings](https://arxiv.org/pdf/1704.03477) paper and after reviewing a previous implementation by [the LabML library](https://nn.labml.ai/sketch_rnn/index.html). I also used the data-processing pipeline from LabML.
 
-Sketch-RNN is similar to a variational autoencoder (VAE). The encoder is a recurrent network that encodes a series of pen strokes into a distribution from which a latent vector is sampled. The decoder is another recurrent network that tries to reconstruct the input pen stroke sequence. The decoder's output is a series of Gaussian mixture distributions, from which actual pen strokes would be sampled. Please refer to my computation graph below for a more granular visualization.
+Sketch-RNN is similar to a variational autoencoder (VAE). The encoder is a recurrent network that encodes a series of pen strokes into a distribution from which a latent vector is sampled. The decoder is another recurrent network that tries to reconstruct the input pen stroke sequence. The decoder's output is a series of Gaussian mixture distributions, from which actual pen strokes would be sampled. Please refer to my [computation graph](<Computation Graph Sketch RNN.pdf>) below for a more granular visualization.
 
 This model was trained on the [Quick, Draw!](https://github.com/googlecreativelab/quickdraw-dataset) dataset. Specific .npz files pertaining to specific object categories can be found [here](https://console.cloud.google.com/storage/browser/quickdraw_dataset/sketchrnn). Each sketch is a series of strokes, in which each stroke is represented by a tuple of several values, including $\Delta x$ and $\Delta y$ to represent the offset between current and next pen positions, as well as a flag to indicate whether the pen should touch the canvas or not.
 
@@ -71,7 +71,11 @@ options:
 
 ## Demo
 
-In this experiment, I used the following values, which are also set to be default values for the command-line arguments into `train_sketch_rnn.py`.
+In this experiment, given the limited time and computing resources, I used the following hyperparameters (which are also default values for CLI args into `train_sketch_rnn.py`) to train a Sketch-RNN model on sketches of cats and bicycles (separately). Overall, the model could learn in just a few epochs to draw coherent sketches with clear main features of cats or bibycles. But the model did not improve much afterwards and was stuck with simplistic drawings.
+
+Perhaps, the latent representation learning in the encoder was inadequate to learn enough variety of features, or the decoder did not have enough capacity to draw sophisticated sketches.
+
+Google Brain's paper used larger values for LSTM hidden size, potentially giving the model more capacity to learn. My next experiments will be to increase the encoder and the decoder's capacity and to use larger version of the .npz data file to test the network's ability to learn and draw.
 
 ```
 lr = 0.001
@@ -91,6 +95,92 @@ tensorboard_folder_name = "tensorboard_logging"
 
 ### Training on "bicycle" sketches
 
+Training loss curve (total) after certain number of batches:
+<figure>
+  <img src="tensorboard_bicycle_sketches.png" alt="Training loss curve (total) after certain number of batches">
+  
+</figure>
+
+<br />
+<br />
+
+<table>
+  <tr>
+    <td><img src="sampled_sketches_bicycles\before_epoch2_batch0.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_bicycles\before_epoch2_batch100.png" alt="a generated sketch"></td>
+    </tr>
+    <tr></tr>
+    <tr>
+    <td><img src="sampled_sketches_bicycles\before_epoch2_batch200.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_bicycles\before_epoch2_batch300.png" alt="a generated sketch"></td>
+    </tr>
+    <tr></tr>
+  <tr>
+    <td colspan="2" style="text-align: center;">At first, the model's generated bicycle sketches did not quite make sense.</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td><img src="sampled_sketches_bicycles\before_epoch6_batch0.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_bicycles\before_epoch6_batch100.png" alt="a generated sketch"></td>
+    </tr>
+    <tr></tr>
+    
+  <tr>
+    <td colspan="2" style="text-align: center;">But the model learned to draw a coherent bicycle after just 5 eopchs, attempting to draw the round wheels and connect them. It even tried to draw the spokes inside a wheel. </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td><img src="sampled_sketches_bicycles\before_epoch21_batch0.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_bicycles\before_epoch21_batch100.png" alt="a generated sketch"></td>
+    </tr>
+    <tr></tr>
+    <tr>
+    <td><img src="sampled_sketches_bicycles\before_epoch21_batch200.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_bicycles\before_epoch21_batch300.png" alt="a generated sketch"></td>
+    </tr>
+    <tr></tr>
+  <tr>
+    <td colspan="2" style="text-align: center;">After about 20 epochs, the sketches were neat and coherent, with clear main features such as two connected wheels, a seat and a handlebar.</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td><img src="sampled_sketches_bicycles\before_epoch40_batch0.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_bicycles\before_epoch45_batch0.png" alt="a generated sketch"></td>
+    </tr>
+    <tr></tr>
+    <tr>
+    <td><img src="sampled_sketches_bicycles\before_epoch50_batch0.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_bicycles\before_epoch55_batch0.png" alt="a generated sketch"></td>
+    </tr>
+    <tr></tr>
+  <tr>
+    <td colspan="2" style="text-align: center;">Unfortunately, the model stopped improving after that. Generated sketches remained quite simplistic relative to human-drawn sketches from the training data, where wheeels sometimes have spokes.</td>
+  </tr>
+</table>
+
+
+<table>
+  <tr>
+    <td><img src="sampled_sketches_bicycles\before_epoch60_batch100-input.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_bicycles\before_epoch60_batch200-input.png" alt="a generated sketch"></td>
+    </tr>
+    <tr></tr>
+    <tr>
+    <td><img src="sampled_sketches_bicycles\before_epoch60_batch300-input.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_bicycles\before_epoch61_batch100-input.png" alt="a generated sketch"></td>
+    </tr>
+    <tr></tr>
+  <tr>
+    <td colspan="2" style="text-align: center;">Here are some input training data for comparison. Perhaps, the latent representation learning in the encoder was inadequate to learn enough variety of features, or the decoder did not have enough capacity to draw sophisticated sketches.</td>
+  </tr>
+</table>
+
 ### Training on "cat" sketches
 
 Training loss curve (total) after certain number of batches:
@@ -104,13 +194,13 @@ Training loss curve (total) after certain number of batches:
 
 <table>
   <tr>
-    <td><img src="sampled_sketches_cats\before_epoch3_batch400.png" alt="Image 1 description"></td>
-    <td><img src="sampled_sketches_cats\before_epoch3_batch500.png" alt="Image 2 description"></td>
+    <td><img src="sampled_sketches_cats\before_epoch3_batch400.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_cats\before_epoch3_batch500.png" alt="a generated sketch"></td>
     </tr>
     <tr></tr>
     <tr>
-    <td><img src="sampled_sketches_cats\before_epoch3_batch600.png" alt="Image 1 description"></td>
-    <td><img src="sampled_sketches_cats\before_epoch4_batch0.png" alt="Image 2 description"></td>
+    <td><img src="sampled_sketches_cats\before_epoch3_batch600.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_cats\before_epoch4_batch0.png" alt="a generated sketch"></td>
     </tr>
     <tr></tr>
   <tr>
@@ -120,8 +210,8 @@ Training loss curve (total) after certain number of batches:
 
 <table>
   <tr>
-    <td><img src="sampled_sketches_cats\before_epoch11_batch100.png" alt="Image 1 description"></td>
-    <td><img src="sampled_sketches_cats\before_epoch11_batch200.png" alt="Image 2 description"></td>
+    <td><img src="sampled_sketches_cats\before_epoch11_batch100.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_cats\before_epoch11_batch200.png" alt="a generated sketch"></td>
   </tr>
     
   <tr></tr>
@@ -133,13 +223,13 @@ Training loss curve (total) after certain number of batches:
 
 <table>
   <tr>
-    <td><img src="sampled_sketches_cats\before_epoch22_batch0.png" alt="Image 1 description"></td>
-    <td><img src="sampled_sketches_cats\before_epoch22_batch100.png" alt="Image 2 description"></td>
+    <td><img src="sampled_sketches_cats\before_epoch22_batch0.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_cats\before_epoch22_batch100.png" alt="a generated sketch"></td>
     </tr>
     <tr></tr>
     <tr>
-    <td><img src="sampled_sketches_cats\before_epoch22_batch300.png" alt="Image 1 description"></td>
-    <td><img src="sampled_sketches_cats\before_epoch22_batch400.png" alt="Image 2 description"></td>
+    <td><img src="sampled_sketches_cats\before_epoch22_batch300.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_cats\before_epoch22_batch400.png" alt="a generated sketch"></td>
     </tr>
     <tr></tr>
   <tr>
@@ -149,13 +239,13 @@ Training loss curve (total) after certain number of batches:
 
 <table>
   <tr>
-    <td><img src="sampled_sketches_cats\before_epoch51_batch300.png" alt="Image 1 description"></td>
-    <td><img src="sampled_sketches_cats\before_epoch51_batch600.png" alt="Image 2 description"></td>
+    <td><img src="sampled_sketches_cats\before_epoch51_batch300.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_cats\before_epoch51_batch600.png" alt="a generated sketch"></td>
     </tr>
     <tr></tr>
     <tr>
-    <td><img src="sampled_sketches_cats\before_epoch52_batch300.png" alt="Image 1 description"></td>
-    <td><img src="sampled_sketches_cats\before_epoch55_batch200.png" alt="Image 2 description"></td>
+    <td><img src="sampled_sketches_cats\before_epoch52_batch300.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_cats\before_epoch55_batch200.png" alt="a generated sketch"></td>
     </tr>
     <tr></tr>
   <tr>
@@ -166,8 +256,8 @@ Training loss curve (total) after certain number of batches:
 
 <table>
   <tr>
-    <td><img src="sampled_sketches_cats\before_epoch70_batch200.png" alt="Image 1 description"></td>
-    <td><img src="sampled_sketches_cats\before_epoch70_batch500.png" alt="Image 2 description"></td>
+    <td><img src="sampled_sketches_cats\before_epoch70_batch200.png" alt="a generated sketch"></td>
+    <td><img src="sampled_sketches_cats\before_epoch70_batch500.png" alt="a generated sketch"></td>
     </tr>
   <tr></tr>
   <tr>
@@ -177,3 +267,7 @@ Training loss curve (total) after certain number of batches:
 
 
 ## Computation graph
+
+For anyone who wants to look into the code, here's the computation graph that I outlined, along with variable name and tensor shape, to help guide myself in coding the modules in PyTorch.
+
+![sketch-RNN computation graph](<Computation Graph Sketch RNN.png>)

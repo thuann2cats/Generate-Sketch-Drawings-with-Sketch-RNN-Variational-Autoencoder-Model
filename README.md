@@ -95,7 +95,7 @@ tensorboard_folder_name = "tensorboard_logging"
 
 <style>
   table {
-  background-color: inherit; /* Inherits background from parent (usually white) */
+  background-color: none;
 }
 </style>
 

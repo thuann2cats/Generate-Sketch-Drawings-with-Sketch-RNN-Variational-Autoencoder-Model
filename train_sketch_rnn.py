@@ -160,9 +160,9 @@ def train_sketchRNN(
                 
         # Save the weights
         if epoch % save_every_n_epochs == 0:
-            torch.save(decoder.state_dict(), os.path.join(decoder_folder_path, f"decoder-{next_decoder_idx}.pt"))
+            torch.save(model.decoder.state_dict(), os.path.join(decoder_folder_path, f"decoder-{next_decoder_idx}.pt"))
             next_decoder_idx += 1
-            torch.save(encoder.state_dict(), os.path.join(encoder_folder_path, f"encoder-{next_encoder_idx}.pt"))
+            torch.save(model.encoder.state_dict(), os.path.join(encoder_folder_path, f"encoder-{next_encoder_idx}.pt"))
             next_encoder_idx += 1
             
     tensorboard_writer.close()        
@@ -184,6 +184,10 @@ def main():
                         help="Path to the training data (.npz file).")
     parser.add_argument("--folder_path", type=str, required=True,
                         help="Path to the folder for saving model checkpoints and logs.")
+    
+    
+    parser.add_argument("--num_epochs", type=int, default=70,
+                    help="Number of training epochs (default: %(default)s)")
     parser.add_argument("--lr", type=validate_learning_rate, default=0.001,
                         help="Learning rate for the optimizer (must be <= 2.0).")
     parser.add_argument("--batch_size", type=int, default=100,
@@ -233,6 +237,7 @@ def main():
     args = parser.parse_args()
     
     # Accessing arguments by name
+    num_epochs=args.num_epochs
     batch_size = args.batch_size
     path_to_npz_file = args.data_file
     encoder_lstm_hidden_size = args.encoder_lstm_hidden_size
@@ -246,9 +251,9 @@ def main():
     decoder_folder_name = args.decoder_folder_name
     tensorboard_folder_name = args.tensorboard_folder_name
     sampled_sketches_folder_name = args.sampled_sketches_folder_name
-    if args.optimizer_func == "adam":
+    if args.optimizer_func.lower() == "adam":
         optimizer_func = torch.optim.Adam
-    elif args.optimizer_func == "rmsprop":
+    elif args.optimizer_func.lower() == "rmsprop":
         optimizer_func = torch.optim.RMSprop
     lr = args.lr
     load_encoder_checkpoint_file = args.load_encoder_checkpoint_file
@@ -276,6 +281,7 @@ def main():
         "tensorboard_folder_name": tensorboard_folder_name,
         "sampled_sketches_folder_name": sampled_sketches_folder_name,
         "lr": lr,
+        "num_epochs": num_epochs,
     }
     if load_encoder_checkpoint_file is not None:
         variable_dict["load_encoder_checkpoint_file"] = load_encoder_checkpoint_file
@@ -337,7 +343,7 @@ def main():
         model=sketch_rnn_model,
         train_loader=train_loader,
         valid_loader=valid_loader,
-        num_epochs=70,
+        num_epochs=num_epochs,
         folder_path=folder_path,
         device=device,
         optimizer_func=optimizer_func,
@@ -355,8 +361,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
-    
-    
-    
     

@@ -31,6 +31,8 @@ python train_sketch_rnn.py --data_file=/path/to/npz/data/file --folder_path=/pat
 
 Run `train_sketch_rnn.py` to train Sketch-RNN. Two arguments are required: (1) the path to the input data (.npz) file and (2) the path to the folder where module checkpoints, generated sketches and TensorBoard training stats will be saved.
 
+During training, a live loss curve and training stats, including average gradient values for each layer, can be opened by running: ``` tensorboard --logdir /FOLDER_PATH/TENSORBOARD_FOLDER_NAME``` (see below for more details).
+
 
 ```
 usage: train_sketch_rnn.py [-h] --data_file DATA_FILE --folder_path FOLDER_PATH [--lr LR] [--batch_size BATCH_SIZE]
